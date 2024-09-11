@@ -1,0 +1,128 @@
+﻿@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "NewDetail";
+}
+
+@model HtmlModel
+@section Scripts {
+    <script src="~/js/site.js"></script> 
+}
+
+<form id="form1">
+<div id="head">
+    <ul>
+        <li class="brand">
+            <div>
+                <div id="container_icon">
+                    <svg id="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#clip0_429_11160)"> <circle cx="12" cy="11.9999" r="9" stroke="#ff0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></circle> <rect x="12" y="8" width="0.01" height="0.01" stroke="#ff0000" stroke-width="3.75" stroke-linejoin="round"></rect> <path d="M12 12V16" stroke="#ff0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0_429_11160"> <rect width="24" height="24" fill="white"></rect> </clipPath> </defs> </g></svg>
+                    <p class="title_header" id="changeHeader">Chi tiết Booking</p>
+                </div>
+                <div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<ul class="action_form">
+    <p id="code" class="color_child_title">@Model.code</p>
+    <li class="info">
+        <div>
+            <p class="btn_area" style="display:inline">Khu vực</p>
+            <p class="validation" style="display:inline">*</p>
+        </div>
+    </li>
+    <div id="container_area">
+        @foreach (var item in Model.AreaHtmlList)
+        {
+            @Html.Raw(item)
+        }
+    </div>
+
+    <li class="info">
+        <div>
+            <p class="btn_area" style="display:inline">Tỉnh thành</p>
+            <p class="validation" style="display:inline">*</p>
+        </div>
+    </li>
+
+    <div id="provinceList"></div>
+
+        <li class="info">
+            <div>
+                <p class="btn_area" style="display:inline">Quận huyện</p>
+                <p class="validation" style="display:inline">*</p>
+            </div>
+        </li>
+    <div id="districtList"></div>
+
+        <li class="info">
+            <div>
+                <p class="btn_area" style="display:inline">Loại cont</p>
+                <p class="validation" style="display:inline">*</p>
+            </div>
+        </li>
+    <div id="contList">
+        <button type="button" class="box_cont" id="cont_20" onclick="ChooseItem('box_cont' ,this);Click_Cont('cont_20');" cd="cont_20" style="background-color: rgb(233, 241, 252); color: rgb(36, 97, 162);"> cont_20</button>
+        <button type="button" class="box_cont" id="cont_40" onclick="ChooseItem('box_cont' ,this);Click_Cont('cont_40');" cd="cont_40" style="background-color: rgb(233, 241, 252); color: rgb(36, 97, 162);"> cont_40</button>
+    </div>
+
+    <div hidden>
+        @foreach (var item in Model.BookingHtmlList)
+        {
+            @Html.Raw(item)
+        }
+    </div>
+</ul>
+
+<div id="footer_body">
+    <div class="container_button_footer2">
+            <a asp-action="Index" asp-controller="Home">
+                <button id="Return" class="padding_button" type="button">Trở về</button>
+            </a>
+
+        <button id="Save" class="padding_button" onclick="UpdateOrCreate();">Lưu</button>
+
+    </div>
+</div>
+
+    <div id="pop" class="overlay_menu display_none_loading">
+        <div class="close_overlay_menu"></div>
+        <div class="container_noti ">
+            <div class=" menu_customer_list" id="menu_customer_list">
+                <div class="box_loading display_none_loading">
+                    <!--<img src="../../resource/loading-animation.gif" />-->
+                    @* <img src="http://fpits.5svisions.com:3003/fsmdls/ORDER/assets/image_icon/loading-animation.gif" /> *@
+                    <iframe src="https://giphy.com/embed/uIJBFZoOaifHf52MER" width="480" height="446" style="" frameBorder="0" class="giphy-embed"></iframe>
+                    <!--<img src="../ORDER/assets/image_icon/loading-animation.gif">-->
+                    <!--<img src="http://fpits.5svisions.com:3003/fsmdls/ORDER/assets/image_icon/loading-animation.gif">-->
+                </div>
+                <div class="_cus">
+                    <div class="close_detail">
+                        <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z" fill="#1C274C"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="content_header_div">
+                        <h2 class="content_header"></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="body_noti">
+                <div class="content_noti">
+                    <span id="titleId"></span>
+                </div>
+            </div>
+            <div class="footer_noti">
+                <div class="flex_noti">
+                    <input class="display_none_loading" type="button" value="Submit" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
