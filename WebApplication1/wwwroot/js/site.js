@@ -77,27 +77,11 @@ async function sentUpdateOrCreate(para) {
    
 }
 
-function UpdateOrCreate() {
-
-    var message = "temp";
-    //if (booking.code != "") {
-    //    try {
-    //        var res = await sentUpdateOrCreate("Update");
-    //        console.log("temp", res);
-    //    } catch (e) {
-    //        console.log(e);
-    //    }
-    //}
-    //else {
-    //    try {
-    //        var res = await sentUpdateOrCreate("Create");
-    //        console.log("temp", res);
-    //    } catch (e) {
-    //        console.log(e);
-    //    }
-    //}
-    showMessageBox(message, message, 'text', 'small', 10000);
-}
+$("#save").click(function () {
+    console.log("Tới đây");
+     let  message = 'Thêm mới Booking thành công';
+     showMessageBox(message, message, 'text', 'small', 3000);
+});
 
 async function Loading() {
     let code = document.getElementById('code').textContent;
@@ -262,12 +246,21 @@ async function ChooseItem(classItem, control) {
     }
 }
 
+
+function BackToAllListBooking() {
+    var newPageUrl = "Booking_Home.aspx";
+    $.get(newPageUrl, function (data) {
+        window.location.href = newPageUrl; return false;
+    })
+}
+
 function handleCloseDetail() {
     document.getElementsByClassName("overlay_menu")[0].classList.add("display_none_loading");
     document.getElementsByClassName("container_noti")[0].classList.add("display_none_loading");
+    BackToAllListBooking();
 }
+
 function showMessageBox(text_title, text_cotent, type, size, timer) {
-    console.log("temp");
     if (timer === undefined) timer = undefined; // Thiết lập giá trị mặc định nếu cần
     let container_noti = document.getElementsByClassName("container_noti")[0];
     switch (size) {
